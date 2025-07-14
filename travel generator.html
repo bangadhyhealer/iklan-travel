@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Generator Prompt Iklan Travel</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 700px;
+      margin: auto;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 10px;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    #output {
+      background: #ecf0f1;
+      margin: 20px auto 10px;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 700px;
+      white-space: pre-wrap;
+      min-height: 120px;
+      font-family: monospace;
+      outline: none;
+    }
+    .copy-button {
+      display: block;
+      margin: 0 auto 20px;
+      background: #2ecc71;
+    }
+    .copy-button:hover {
+      background: #27ae60;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #555;
+    }
+    .social-buttons {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .social-buttons a {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px 15px;
+      background: #27ae60;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+    .social-buttons a.tiktok {
+      background: #000;
+    }
+    .social-buttons a:hover {
+      background-color: #1e8449;
+    }
+    .social-buttons a.tiktok:hover {
+      background-color: #222;
+    }
+    @media (max-width: 700px) {
+      button {
+        width: 100%;
+        margin-bottom: 10px;
+        margin-right: 0;
+      }
+      .social-buttons a {
+        display: block;
+        margin: 10px auto;
+        width: 180px;
+        text-align: center;
+      }
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 600px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      position: relative;
+      text-align: center;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #999;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .modal-close:hover {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Modal popup pertama -->
+<div id="startModal" class="modal" style="display:block;">
+  <div class="modal-content">
+    <h2>Konfirmasi Sebelum Menggunakan</h2>
+    <p>Untuk melanjutkan menggunakan aplikasi, silakan klik tombol di bawah ini.</p>
+    <button id="startModalButton">LANJUT</button>
+  </div>
+</div>
+
+<h1>Generator Prompt Iklan Travel</h1>
+
+<form id="promptForm" onsubmit="return false;">
+  <label for="promptType">Tipe Prompt</label>
+  <select id="promptType">
+    <option value="videoFormal">Video Formal</option>
+    <option value="videoSantai">Video Santai</option>
+    <option value="gambar">Prompt Gambar</option>
+  </select>
+
+  <label for="destinasi">Destinasi</label>
+  <input type="text" id="destinasi" placeholder="Contoh: Bali" />
+
+  <label for="tema">Tema Perjalanan</label>
+  <input type="text" id="tema" placeholder="Contoh: Liburan Keluarga" />
+
+  <label for="keunggulan">Keunggulan</label>
+  <input type="text" id="keunggulan" placeholder="Contoh: Diskon 30%, hotel bintang 4" />
+
+  <label for="durasi">Durasi</label>
+  <input type="text" id="durasi" placeholder="Contoh: 5 hari 4 malam" />
+
+  <label for="audiens">Target Audiens</label>
+  <input type="text" id="audiens" placeholder="Contoh: Keluarga muda" />
+
+  <label for="nada">Nada Bahasa</label>
+  <input type="text" id="nada" placeholder="Contoh: Ceria dan hangat" />
+
+  <label for="cta">Call to Action</label>
+  <input type="text" id="cta" placeholder="Contoh: Pesan sekarang!" />
+
+  <label for="gayaVisual">Gaya Visual</label>
+  <select id="gayaVisual">
+    <option value="">--Pilih Gaya Visual--</option>
+    <option value="Realistis">Realistis</option>
+    <option value="Kartun">Kartun</option>
+    <option value="Sinematik">Sinematik</option>
+    <option value="Dokumenter">Dokumenter</option>
+    <option value="3D Render">3D Render</option>
+  </select>
+
+  <label for="kualitasVisual">Kualitas Visual</label>
+  <input type="text" id="kualitasVisual" placeholder="Contoh: 4K, High Detail" />
+
+  <label for="karakter">Deskripsi Karakter</label>
+  <textarea id="karakter" placeholder="Contoh: Seorang wanita muda, ramah, memakai seragam agen travel"></textarea>
+
+  <label for="detailKarakter">Detail Karakter & Properti</label>
+  <textarea id="detailKarakter" placeholder="Contoh: Duduk di kursi belakang mobil, memegang brosur, tersenyum"></textarea>
+
+  <label for="visual">Visual Pendukung</label>
+  <textarea id="visual" placeholder="Contoh: Mobil New Xenia, latar kota, cuaca cerah"></textarea>
+
+  <div style="margin-top:15px;">
+    <button type="button" onclick="generatePrompt()">Buat Prompt</button>
+    <button type="button" onclick="generateExample()">Contoh Otomatis</button>
+    <button type="button" onclick="resetForm()">Reset</button>
+    <button type="button" onclick="downloadPrompt()">Download .txt</button>
+    <button type="button" id="panduanBtn">Panduan Penggunaan</button>
+  </div>
+</form>
+
+<div id="output" tabindex="0" aria-label="Hasil prompt"></div>
+<button type="button" class="copy-button" onclick="copyPrompt()">Salin Prompt</button>
+
+<div class="social-buttons">
+  <a href="https://wa.me/6281936034285" target="_blank">WhatsApp</a>
+  <a href="https://www.tiktok.com/@bang.adhyhealer" target="_blank" class="tiktok">TikTok</a>
+</div>
+
+<div class="footer">
+  &copy; 2025 Bang Adhy
+</div>
+
+<!-- Modal Panduan -->
+<div id="modalPanduan" class="modal">
+  <div class="modal-content">
+    <span class="modal-close" id="closeModal">&times;</span>
+    <h2>Panduan Penggunaan</h2>
+    <ul style="text-align:left;">
+      <li><b>Tipe Prompt:</b> Pilih Video Formal, Video Santai, atau Gambar.</li>
+      <li><b>Karakter & Detail:</b> Deskripsi orang dan aktivitas.</li>
+      <li><b>Visual & Gaya:</b> Tentukan kualitas, gaya, latar visual.</li>
+      <li>Klik <em>Buat Prompt</em> untuk hasilkan teks siap pakai.</li>
+      <li><em>Salin Prompt</em> untuk copy ke clipboard.</li>
+      <li><em>Download .txt</em> untuk simpan prompt.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+// Modal popup pertama
+const startModal = document.getElementById("startModal");
+const startModalButton = document.getElementById("startModalButton");
+
+startModalButton.onclick = function() {
+  window.open("https://www.profitableratecpm.com/b2ikw28c6?key=f341bccbe07a2f02f1975dc2edaa90dd", "_blank");
+  startModal.style.display = "none";
+};
+
+// Modal panduan
+const modal = document.getElementById("modalPanduan");
+const btn = document.getElementById("panduanBtn");
+const span = document.getElementById("closeModal");
+
+btn.onclick = function() {
+  modal.style.display = "block";
+};
+span.onclick = function() {
+  modal.style.display = "none";
+};
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+  if (event.target == startModal) {
+    startModal.style.display = "none";
+  }
+};
+
+// Reset form
+function resetForm() {
+  document.getElementById("promptForm").reset();
+  document.getElementById("output").textContent = "";
+}
+
+// Generate prompt
+function generatePrompt() {
+  const type = document.getElementById("promptType").value;
+  const destinasi = document.getElementById("destinasi").value.trim();
+  const tema = document.getElementById("tema").value.trim();
+  const keunggulan = document.getElementById("keunggulan").value.trim();
+  const durasi = document.getElementById("durasi").value.trim();
+  const audiens = document.getElementById("audiens").value.trim();
+  const nada = document.getElementById("nada").value.trim();
+  const cta = document.getElementById("cta").value.trim();
+  const gayaVisual = document.getElementById("gayaVisual").value.trim();
+  const kualitasVisual = document.getElementById("kualitasVisual").value.trim();
+  const karakter = document.getElementById("karakter").value.trim();
+  const detailKarakter = document.getElementById("detailKarakter").value.trim();
+  const visual = document.getElementById("visual").value.trim();
+
+  let prompt = "";
+
+  if (type === "gambar") {
+    prompt = `Prompt Gambar:
+
+Gaya Visual: ${gayaVisual || "Realistis"}
+Kualitas Visual: ${kualitasVisual || "HD"}
+
+Karakter Utama:
+${karakter}
+
+Detail Karakter:
+${detailKarakter}
+
+Visual Pendukung:
+${visual}
+
+Tema: ${tema}
+Destinasi: ${destinasi}
+Keunggulan: ${keunggulan}
+Durasi: ${durasi}
+Target Audiens: ${audiens}
+Nada Visual: ${nada}
+
+Tulisan di gambar: "${cta}"
+`;
+  } else {
+    prompt = `Prompt Video ${type === "videoFormal" ? "Formal" : "Santai"}:
+
+Destinasi: ${destinasi}
+Tema: ${tema}
+Keunggulan: ${keunggulan}
+Durasi: ${durasi}
+Target Audiens: ${audiens}
+Nada Bahasa: ${nada}
+Call to Action: ${cta}
+
+Gaya Visual: ${gayaVisual || "Standard"}
+Kualitas Visual: ${kualitasVisual || "HD"}
+
+Deskripsi Karakter:
+${karakter}
+
+Detail Karakter & Properti:
+${detailKarakter}
+
+Visual Pendukung:
+${visual}
+
+Dialog:
+"Mau booking travel yang amanah, nyaman, dan driver profesional? Booking saja Agen Travel ${destinasi}! ${cta}."
+`;
+  }
+
+  document.getElementById("output").textContent = prompt;
+}
+
+// Contoh otomatis
+function generateExample() {
+  document.getElementById("promptType").value = "videoFormal";
+  document.getElementById("destinasi").value = "Cianjur Selatan";
+  document.getElementById("tema").value = "Promosi Agen Travel";
+  document.getElementById("keunggulan").value = "Driver ramah, waktu efisien";
+  document.getElementById("durasi").value = "Tidak disebutkan";
+  document.getElementById("audiens").value = "Calon penumpang travel";
+  document.getElementById("nada").value = "Persuasif dan ramah";
+  document.getElementById("cta").value = "Hubungi 085797586303 sekarang!";
+  document.getElementById("gayaVisual").value = "Realistis";
+  document.getElementById("kualitasVisual").value = "HD";
+  document.getElementById("karakter").value = "Seorang wanita muda duduk di kursi belakang baris ke-2";
+  document.getElementById("detailKarakter").value = "Mobil New Xenia tahun 2022, total 4 penumpang, wanita memegang ponsel dan tersenyum";
+  document.getElementById("visual").value = "Interior mobil dengan pencahayaan cerah";
+
+  generatePrompt();
+}
+
+// Salin prompt dengan pesan donasi
+function copyPrompt() {
+  const output = document.getElementById("output").textContent;
+  if (!output.trim()) {
+    alert("Belum ada prompt untuk disalin!");
+    return;
+  }
+  navigator.clipboard.writeText(output)
+    .then(() => {
+      alert(`Prompt berhasil disalin ke clipboard!\n\nJangan lupa komen dan follow ya,\nDONASI seikhlasnya REK: BNI 1923545440\nATAU DANA: 087703111465\n(jika link tidak bisa, hubungi saya)`);
+    })
+    .catch(err => alert("Gagal menyalin prompt: " + err));
+}
+
+// Download prompt
+function downloadPrompt() {
+  const output = document.getElementById("output").textContent;
+  if (!output.trim()) {
+    alert("Belum ada prompt untuk diunduh!");
+    return;
+  }
+  const blob = new Blob([output], {type: "text/plain"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "prompt-iklan-travel.txt";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
+</script>
+</body>
+</html>
